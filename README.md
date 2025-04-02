@@ -1,4 +1,9 @@
-# BillBox
+<div align="center">
+  <img src="src/web/public/og-image.png" alt="billbox-logo" width="1200"/>
+</div>
+
+---
+## BillBox
 
 BillBox is an intelligent invoice management tool that allows users to upload invoice images, extract key details (due dates, amounts, etc.) using OCR and machine learning, and automatically create Google Calendar reminders. The project is built using Python and C++ for optimal performance and scalability.
 
