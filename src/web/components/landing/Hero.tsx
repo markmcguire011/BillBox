@@ -7,7 +7,7 @@ export default function Hero() {
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className="md:w-1/2 space-y-6">
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+            <h1 className="text-4xl md:text-5xl font-medium leading-tight">
               <span className="text-[#2463EB]">Simple</span> Invoice Management
             </h1>
             <p className="text-lg text-gray-600">
