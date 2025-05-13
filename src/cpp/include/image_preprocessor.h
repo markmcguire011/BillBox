@@ -1,78 +1,34 @@
 #pragma once
 
+#include <opencv2/opencv.hpp>
 #include <string>
 #include <vector>
-#include <memory>
 
-namespace billbox {
-
-/**
- * @class ImagePreprocessor
- * @brief Handles image preprocessing for OCR
- * 
- * This class provides methods for preprocessing images to improve
- * OCR accuracy, including operations like grayscale conversion,
- * thresholding, noise removal, and deskewing.
- */
 class ImagePreprocessor {
 public:
-    /**
-     * @brief Constructor
-     */
     ImagePreprocessor();
-    
-    /**
-     * @brief Destructor
-     */
     ~ImagePreprocessor();
+
+    // Load image from file
+    bool loadImage(const std::string& imagePath);
     
-    /**
-     * @brief Preprocess an image file for OCR
-     * @param input_path Path to the input image
-     * @param output_path Path to save the preprocessed image (optional)
-     * @return Path to the preprocessed image
-     */
-    std::string preprocess_image(const std::string& input_path, const std::string& output_path = "");
+    // Preprocess the loaded image
+    cv::Mat preprocess();
     
-    /**
-     * @brief Preprocess image data in memory
-     * @param image_data Raw image data
-     * @param width Image width
-     * @param height Image height
-     * @param channels Number of channels (1 for grayscale, 3 for RGB)
-     * @return Preprocessed image data
-     */
-    std::vector<unsigned char> preprocess_image_data(const unsigned char* image_data, 
-                                                    int width, int height, int channels);
+    // Get the current image
+    cv::Mat getCurrentImage() const;
     
-    /**
-     * @brief Enable or disable grayscale conversion
-     * @param enable True to enable, false to disable
-     */
-    void enable_grayscale(bool enable);
-    
-    /**
-     * @brief Enable or disable thresholding
-     * @param enable True to enable, false to disable
-     * @param threshold_value Threshold value (0-255)
-     */
-    void enable_threshold(bool enable, int threshold_value = 128);
-    
-    /**
-     * @brief Enable or disable noise removal
-     * @param enable True to enable, false to disable
-     */
-    void enable_noise_removal(bool enable);
-    
-    /**
-     * @brief Enable or disable deskewing
-     * @param enable True to enable, false to disable
-     */
-    void enable_deskew(bool enable);
+    // Save the processed image
+    bool saveImage(const std::string& outputPath);
 
 private:
-    class Impl;
-    std::unique_ptr<Impl> pImpl; // Pointer to implementation (PIMPL idiom)
+    cv::Mat originalImage;
+    cv::Mat processedImage;
+    
+    // Helper methods
+    cv::Mat convertToGrayscale(const cv::Mat& input);
+    cv::Mat applyGaussianBlur(const cv::Mat& input);
+    cv::Mat applyAdaptiveThreshold(const cv::Mat& input);
+    cv::Mat removeNoise(const cv::Mat& input);
+    cv::Mat enhanceContrast(const cv::Mat& input);
 };
-
-} // namespace billbox
