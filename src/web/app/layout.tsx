@@ -56,7 +56,7 @@ export default function RootLayout({
         className={`${instrumentSans.variable} ${instrumentSans.className} antialiased`}
       >
         <Navbar />
-        <main className="-mt-18">{children}</main>
+        <main className="min-h-screen">{children}</main>
         <Footer />
       </body>
     </html>
